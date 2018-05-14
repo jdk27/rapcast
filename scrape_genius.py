@@ -93,6 +93,8 @@ for artist, verses in artists.iteritems():
 			lyric_count = lyric_count.append({'artist':artist, 'corpus':artists[artist]}, ignore_index=True)
 			
 
+# *********** save output ***********
+
 lyric_count.to_csv('lyric_corpus_count.csv', index=False)
 raw_lyrics.to_csv('lyric_corpus.csv', index=False)
 
