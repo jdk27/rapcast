@@ -77,14 +77,15 @@ for url in urls:
 	# time.sleep(randint(5,10))
 
 for artist, verses in artists.iteritems():
-		artists[artist] = " ".join(verses)
 		# raw lyrics
 		if raw_lyrics[raw_lyrics.artist==artist].shape[0]>0:
 			index = raw_lyrics.index[raw_lyrics['artist']==artist].tolist()[0]
-			raw_lyrics.at[index, 'corpus'] = raw_lyrics.iloc[index].corpus + artists[artist]
+			for verse in verses:
+				raw_lyrics.at[index, 'corpus'] = raw_lyrics.iloc[index].corpus.append(verse)
 		else:
-			raw_lyrics = raw_lyrics.append({'artist':artist, 'corpus':artists[artist]}, ignore_index=True)
+			raw_lyrics = raw_lyrics.append({'artist':artist, 'corpus':verses}, ignore_index=True)
 		# counted lyrics
+		artists[artist] = " ".join(verses)
 		artists[artist] = Counter(artists[artist].split())
 		if lyric_count[lyric_count.artist==artist].shape[0]>0:
 			index = lyric_count.index[lyric_count['artist']==artist].tolist()[0]
