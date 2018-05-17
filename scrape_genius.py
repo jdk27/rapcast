@@ -22,12 +22,14 @@ urls = ['https://genius.com/Drake-nice-for-what-lyrics', 'https://genius.com/Dra
 
 # *********** data read in ***********
 # in first instance, create dataframe, in all later instances, read in
+# if artist_count==0:
 lyric_count = pd.DataFrame(columns=['artist', 'corpus'])
 raw_lyrics = pd.DataFrame(columns=['artist', 'corpus'])
 
-# later:
-# lyric_count = pd.read_csv('lyric_corpus_count.csv')
-# raw_lyrics = pd.read_csv('lyric_corpus.csv')
+# later: 
+# else: 
+	# lyric_count = pd.read_csv('lyric_corpus_count.csv')
+	# raw_lyrics = pd.read_csv('lyric_corpus.csv')
 
 # *********** scraping loop ***********
 
@@ -74,7 +76,7 @@ for url in urls:
 
 	artists[last_artist].append(lyrics)
 
-	# time.sleep(randint(5,10))
+	time.sleep(randint(5,10))
 
 for artist, verses in artists.iteritems():
 		# raw lyrics
@@ -98,11 +100,5 @@ for artist, verses in artists.iteritems():
 
 lyric_count.to_csv('lyric_corpus_count.csv', index=False)
 raw_lyrics.to_csv('lyric_corpus.csv', index=False)
-
-
-
-
-
-
 
 
