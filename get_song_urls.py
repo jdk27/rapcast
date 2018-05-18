@@ -3,11 +3,13 @@ import urllib.request
 import json
 import time
 from random import randint
+import pandas as pd 
 
-# go to Genius developer console to obtain a client access token
 client_access_token = ''
 
-artists = {'Playboi Carti'}
+rappers = pd.read_csv('rappers.csv')
+
+artists = rappers.Name.tolist()
 artist_ids = {}
 for artist in artists:
     search_term = artist
@@ -19,10 +21,11 @@ for artist in artists:
     request.add_header("User-Agent", "")
 
     response = urllib.request.urlopen(request, timeout=3)
-    raw = response.read()
+    raw = response.read().decode('utf-8')
     json_obj = json.loads(raw)
 
     artist_ids[artist] = json_obj['response']['hits'][0]['result']['primary_artist']['api_path']
+    time.sleep(randint(5,10))
 print(artist_ids)
 
 urls = {}
@@ -35,7 +38,7 @@ for artist, artist_id in artist_ids.items():
         request.add_header("Authorization", "Bearer " + client_access_token)
         request.add_header("User-Agent", "")
         response = urllib.request.urlopen(request, timeout=15)
-        raw = response.read()
+        raw = response.read().decode('utf-8')
         json_obj = json.loads(raw)
         if json_obj['response']['next_page'] == None:
             break
