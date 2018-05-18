@@ -20,7 +20,7 @@ for artist in artists:
     request.add_header("Authorization", "Bearer " + client_access_token)
     request.add_header("User-Agent", "")
 
-    response = urllib.request.urlopen(request, timeout=3)
+    response = urllib.request.urlopen(request, timeout=30)
     raw = response.read().decode('utf-8')
     json_obj = json.loads(raw)
 
@@ -37,7 +37,7 @@ for artist, artist_id in artist_ids.items():
         request = urllib.request.Request(querystring)
         request.add_header("Authorization", "Bearer " + client_access_token)
         request.add_header("User-Agent", "")
-        response = urllib.request.urlopen(request, timeout=15)
+        response = urllib.request.urlopen(request, timeout=30)
         raw = response.read().decode('utf-8')
         json_obj = json.loads(raw)
         if json_obj['response']['next_page'] == None:
