@@ -29,8 +29,9 @@ for artist in artists:
 print(artist_ids)
 
 urls = {}
-i = 1
+
 for artist, artist_id in artist_ids.items():
+    i = 1
     urls[artist] = []
     while i <= 10:
         querystring = "https://api.genius.com" + artist_id + "/songs?sort=popularity&per_page=50&page=" + str(i)
